@@ -8,6 +8,7 @@ import connectDB from "./config/dbConn";
 import booksRouter from "./routes/books";
 import { auth } from "./middleware/authentication";
 import Auth from "./routes/auth";
+import http from "http";
 dotenv.config();
 import type { Request, Response } from "express";
 
@@ -22,6 +23,8 @@ const flood = new FloodManager({
 });
 
 const app: Application = express();
+
+const server = http.createServer(app);
 const PORT: string | number = process.env.PORT || 3500;
 app.disable("x-powered-by");
 
@@ -51,6 +54,6 @@ app.use("/api/books", booksRouter);
 app.get("/", (_, res) => res.json(_.user));
 
 app.use(errorhandler);
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
