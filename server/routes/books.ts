@@ -7,7 +7,7 @@ const router = express.Router();
 router
 	.route("/")
 	.get(Controller.getAllBooks)
-	.post(uploadSingleImage, Controller.addBook);
+	.post(allowAdmin("admin"), uploadSingleImage, Controller.addBook);
 
 router.route("/Books").get(Controller.getBooksNumber);
 router

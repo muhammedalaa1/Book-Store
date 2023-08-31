@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("../firebase.json");
 const multer = require("multer");
-
+import express from "express";
 // Initialize Firebase
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
@@ -17,12 +17,16 @@ const upload = multer({
 });
 export function uploadSingleImage(req, res, next) {
 	const uploadTask = upload.single("image");
-	uploadTask(req, res, next, function (err) {
-		if (!req.file) {
-			return next();
-		}
+	uploadTask(req, res, function (err) {
 		if (err) {
 			return res.send(err);
+		}
+		if (!req.file) {
+			if (req.params.bookId) {
+				return next();
+			}
+			res.status(400).send("No file uploaded.");
+			return;
 		}
 
 		// Create a new blob in the bucket and upload the file data.
