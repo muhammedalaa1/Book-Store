@@ -1,0 +1,12 @@
+/* Initially hide the ul with opacity and visibility */
+.ss {
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.5s; /* Transition for 0.3 seconds with ease timing function */
+}
+
+/* Display the ul when h1 is hovered */
+.test:hover .ss {
+	opacity: 1;
+	visibility: visible;
+}

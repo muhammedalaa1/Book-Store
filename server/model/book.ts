@@ -22,6 +22,10 @@ const bookSchema: Schema = new Schema(
 			type: Number,
 			required: [true, "Please enter the quantity of the book"],
 		},
+		category: {
+			type: String,
+			required: [true, "Please enter the author of the book"],
+		},
 		author: {
 			type: String,
 			required: [true, "Please enter the author of the book"],

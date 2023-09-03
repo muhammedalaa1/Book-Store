@@ -22,9 +22,18 @@ const getBook: express.RequestHandler = expressAsyncHandler(
 const addBook: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
 		console.log(req.body);
-		const { name, price, quantity, author, publisher, image } = req.body;
+		const { name, price, quantity, author, publisher, image, category } =
+			req.body;
 
-		if (!name || !quantity || !price || !author || !publisher || !image) {
+		if (
+			!name ||
+			!quantity ||
+			!price ||
+			!author ||
+			!publisher ||
+			!image ||
+			!category
+		) {
 			res.status(400);
 			throw new Error("All fields are mandatory");
 		}
@@ -32,6 +41,7 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 			name,
 			price,
 			quantity,
+			category,
 			author,
 			publisher,
 			image,
