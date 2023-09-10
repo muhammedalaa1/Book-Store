@@ -59,7 +59,7 @@ export const Login = expressAsyncHandler(async (req, res) => {
 
 export const Logout = expressAsyncHandler(async (req, res) => {
 	res
-		.clearCookie(process.env.AUTH_COOKIE, { sameSite: "none" })
+		.clearCookie(process.env.AUTH_COOKIE, { sameSite: "none", secure: true })
 		.status(200)
 		.json({ status: "Logged out" });
 });
