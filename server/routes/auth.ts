@@ -10,7 +10,9 @@ router
 	.route("/register")
 	.post(isLogged(false, new APIError("You already Logged in ", 400)), Register);
 
-router.route("/login").post(Login);
+router
+	.route("/login")
+	.post(isLogged(false, new APIError("You already Logged in ", 400)), Login);
 
 router.route("/logout").all(Logout);
 
