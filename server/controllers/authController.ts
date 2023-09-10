@@ -49,7 +49,7 @@ export const Login = expressAsyncHandler(async (req, res) => {
 		httpOnly: true,
 		sameSite: "none",
 		path: "/",
-		secure: process.env.NODE_ENV === "production",
+		secure: true,
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	exist.password = undefined;
