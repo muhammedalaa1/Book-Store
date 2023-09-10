@@ -32,7 +32,7 @@ app.disable("x-powered-by");
 connectDB();
 
 // Cross Origin Resource Sharing
-const allowedOrigins = ["http://localhost:5173", "http://example2.com"];
+const allowedOrigins = ["http://localhost:5173"];
 
 app.use(
 	cors({
@@ -56,7 +56,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Assuming you converted ./routes/books to TypeScript, you can use ES6 import.
-app.use(flood.middleware());
+// app.use(flood.middleware());
 app.use(auth);
 app.use("/api/auth", Auth);
 app.use("/api/books", booksRouter);
