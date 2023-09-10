@@ -32,12 +32,15 @@ app.disable("x-powered-by");
 connectDB();
 
 // Cross Origin Resource Sharing
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+	"http://localhost:5173",
+	"https://book-stpre.onrender.com",
+];
 
 app.use(
 	cors({
 		origin: (origin, callback) => {
-			if (!origin) return callback(null, true); // allow requests with no origin (like mobile apps or curl requests)
+			if (!origin) return callback(null, true);
 			if (allowedOrigins.indexOf(origin) === -1) {
 				const errMsg =
 					"The CORS policy for this site does not allow access from the specified Origin.";
