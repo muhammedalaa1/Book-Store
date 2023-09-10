@@ -32,9 +32,19 @@ app.disable("x-powered-by");
 connectDB();
 
 // Cross Origin Resource Sharing
+const allowedOrigins = ["http://localhost:5173", "http://example2.com"];
+
 app.use(
 	cors({
-		origin: "*",
+		origin: (origin, callback) => {
+			if (!origin) return callback(null, true); // allow requests with no origin (like mobile apps or curl requests)
+			if (allowedOrigins.indexOf(origin) === -1) {
+				const errMsg =
+					"The CORS policy for this site does not allow access from the specified Origin.";
+				return callback(new Error(errMsg), false);
+			}
+			return callback(null, true);
+		},
 		credentials: true,
 	})
 );
