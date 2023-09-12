@@ -7,7 +7,11 @@ import bcrypt, { compareSync } from "bcrypt";
 
 export const Register = expressAsyncHandler(async (req, res) => {
 	const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-
+	const { userName, email, password, phone } = req.body;
+	if (!userName || !email || !password || !phone) {
+		res.status(400);
+		throw new Error("All fields are mandatory");
+	}
 	req.body.password = hashedPassword;
 	const exist = await User.findOne({
 		$or: [
