@@ -35,6 +35,7 @@ export const Register = expressAsyncHandler(async (req, res) => {
 		sameSite: "none",
 		path: "/",
 		secure: process.env.NODE_ENV === "production",
+		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	user = { ...user.toObject(), token } as any;
 	res.status(201).json(user);
