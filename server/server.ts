@@ -11,7 +11,6 @@ import Auth from "./routes/auth";
 import http from "http";
 dotenv.config();
 import type { Request, Response } from "express";
-
 import FloodManager from "./flood";
 
 const flood = new FloodManager({
@@ -70,3 +69,7 @@ app.use(errorhandler);
 server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
+
+setInterval(() => {
+	connectDB();
+}, 1000 * 60 * 60);
