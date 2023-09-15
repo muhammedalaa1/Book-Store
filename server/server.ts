@@ -11,6 +11,7 @@ import Auth from "./routes/auth";
 import http from "http";
 dotenv.config();
 import type { Request, Response } from "express";
+import axios from "axios";
 import FloodManager from "./flood";
 
 const flood = new FloodManager({
@@ -69,7 +70,7 @@ app.use(errorhandler);
 server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
-
 setInterval(() => {
-	connectDB();
-}, 1000 * 60 * 20);
+	const data = axios.get("https://book-stpre.onrender.com/api/books");
+	console.log(data);
+}, 1000 * 60 * 15);
