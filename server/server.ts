@@ -6,6 +6,7 @@ import cors from "cors";
 import errorhandler from "./middleware/errorhandler";
 import connectDB from "./config/dbConn";
 import booksRouter from "./routes/books";
+import preventIdle from "./routes/preventIdle";
 import { auth } from "./middleware/authentication";
 import Auth from "./routes/auth";
 import http from "http";
@@ -61,6 +62,7 @@ app.use(express.json());
 // Assuming you converted ./routes/books to TypeScript, you can use ES6 import.
 // app.use(flood.middleware());
 app.use(auth);
+app.use("/api/preventIdle", preventIdle);
 app.use("/api/auth", Auth);
 app.use("/api/books", booksRouter);
 
@@ -71,6 +73,5 @@ server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
 setInterval(() => {
-	const data = axios.get("https://book-stpre.onrender.com/api/books");
-	console.log(data);
+	const data = axios.get("https://book-stpre.onrender.com/api/preventIdle");
 }, 1000 * 60 * 15);
