@@ -72,4 +72,4 @@ server.listen(PORT, () => {
 
 setInterval(() => {
 	connectDB();
-}, 1000 * 60 * 60);
+}, 1000 * 60 * 20);
