@@ -1,0 +1,17 @@
+.loginBtn {
+	position: relative;
+}
+
+.loginBtn::before {
+	content: "";
+	position: absolute;
+	background-color: violet;
+	right: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 999;
+}
+.loginBtn::hover::before {
+	width: 100%;
+} /*# sourceMappingURL=login.css.map */

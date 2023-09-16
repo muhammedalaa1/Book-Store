@@ -1,22 +1,20 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-type Product = {
-	[key: string]: any;
-};
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/Auth";
 
 const Home: React.FC = () => {
-	const [data, setdata] = useState<Product[]>([]);
-	useEffect(() => {
-		fetch("https://dummyjson.com/products")
-			.then((res) => res.json())
-			.then((json) => setdata(json.products));
-	}, []);
-	data.map((ele) => console.log(ele));
+	const navigate = useNavigate();
+	const { logout } = useAuth();
+	const handleLogout = async () => {
+		await logout();
+		navigate("/login");
+	};
 
 	return (
 		<>
-			<Link to={"/test"}>To test</Link>
+			home
+			<button onClick={handleLogout} className="block">
+				log out
+			</button>
 		</>
 	);
 };

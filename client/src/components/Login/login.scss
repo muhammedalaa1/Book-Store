@@ -1,0 +1,20 @@
+.loginBtn {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: #7e5bef;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    z-index: 999;
+  }
+
+  &:hover::before {
+    transition: all .7s ease-in-out;
+    width: 100%;
+  }
+}
