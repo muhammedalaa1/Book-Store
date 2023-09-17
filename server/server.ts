@@ -72,4 +72,5 @@ server.listen(PORT, () => {
 });
 setInterval(() => {
 	const data = axios.get("https://book-stpre.onrender.com/api/books");
-}, 1000 * 60 * 15);
+	console.log(data);
+}, 1000 * 60 * 14);
