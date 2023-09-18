@@ -1,7 +1,12 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Books from "../model/book";
-import { APIError, validationError, quantityError } from "../errors";
+import {
+	APIError,
+	validationError,
+	quantityError,
+	searchError,
+} from "../errors";
 import mongoose from "mongoose";
 
 const getAllBooks: express.RequestHandler = expressAsyncHandler(
@@ -63,6 +68,20 @@ const updateBook: express.RequestHandler = expressAsyncHandler(
 	}
 );
 
+const searchBook: express.RequestHandler = expressAsyncHandler(
+	async (req, res) => {
+		const { name } = req.query;
+		if (!name) {
+			throw searchError();
+		}
+		const reg = new RegExp(`${name}`, "i");
+
+		const book = await Books.find({ name: reg });
+		if (!book) throw new APIError("No book found", 404);
+		res.status(200).json(book);
+	}
+);
+
 const deleteBook: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
 		if (!mongoose.isValidObjectId(req.params.bookId)) throw validationError();
@@ -111,4 +130,5 @@ export {
 	buyBook,
 	getBooksNumber,
 	deleteBook,
+	searchBook,
 };

@@ -10,6 +10,7 @@ router
 	.post(allowAdmin("admin"), uploadSingleImage, Controller.addBook);
 
 router.route("/Books").get(Controller.getBooksNumber);
+router.route("/search").get(Controller.searchBook);
 router
 	.route("/:bookId")
 	.get(Controller.getBook)

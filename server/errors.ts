@@ -16,4 +16,6 @@ const validationError = () => new APIError("Validation failed.", 400);
 const quantityError = () =>
 	new APIError("Invalid quantity requested or book out of stock", 422);
 
-export { APIError, validationError, quantityError };
+const searchError = () => new APIError("Name is required", 400);
+
+export { APIError, validationError, quantityError, searchError };
