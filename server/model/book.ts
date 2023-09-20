@@ -6,6 +6,9 @@ interface IBook extends Document {
 	quantity: number;
 	author: string;
 	publisher: string;
+	category: string;
+	description: string;
+	image: string;
 }
 
 const bookSchema: Schema = new Schema(
@@ -37,6 +40,10 @@ const bookSchema: Schema = new Schema(
 		image: {
 			type: String,
 			required: [true, "Please upload the image"],
+		},
+		description: {
+			type: String,
+			required: [true, "Please Write the description"],
 		},
 	},
 	{

@@ -49,8 +49,6 @@ const Nav = () => {
 						</div>
 					</div>
 				</div>
-				<div></div>
-				<div></div>
 			</header>
 		</>
 	);
