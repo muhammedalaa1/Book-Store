@@ -1,10 +1,18 @@
 import express from "express";
-import { Register, Login, Logout } from "../controllers/authController";
 const router = express.Router();
+import {
+	Register,
+	Login,
+	Logout,
+	getAllUsers,
+} from "../controllers/authController";
 import { isLogged } from "../middleware/authentication";
 import { APIError } from "../errors";
+import { allowAdmin } from "../middleware/authentication";
 
 router.route("/").all((_, res) => res.json(_.user));
+
+router.route("/getUsers").get(allowAdmin("admin"), getAllUsers);
 
 router
 	.route("/register")

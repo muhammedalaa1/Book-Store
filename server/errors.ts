@@ -17,5 +17,6 @@ const quantityError = () =>
 	new APIError("Invalid quantity requested or book out of stock", 422);
 
 const searchError = () => new APIError("Name is required", 400);
+const cartUserError = () => new APIError("UserId is required", 400);
 
-export { APIError, validationError, quantityError, searchError };
+export { APIError, validationError, quantityError, searchError, cartUserError };

@@ -68,3 +68,10 @@ export const Logout = expressAsyncHandler(async (req, res) => {
 		.status(200)
 		.json({ status: "Logged out" });
 });
+
+export const getAllUsers: express.RequestHandler = expressAsyncHandler(
+	async (req, res) => {
+		const users = await User.countDocuments();
+		res.status(200).json({ count: users });
+	}
+);

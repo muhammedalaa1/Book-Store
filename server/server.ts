@@ -6,6 +6,7 @@ import cors from "cors";
 import errorhandler from "./middleware/errorhandler";
 import connectDB from "./config/dbConn";
 import booksRouter from "./routes/books";
+import cartRouter from "./routes/cart";
 import { auth } from "./middleware/authentication";
 import Auth from "./routes/auth";
 import http from "http";
@@ -63,6 +64,7 @@ app.use(express.json());
 app.use(auth);
 app.use("/api/auth", Auth);
 app.use("/api/books", booksRouter);
+app.use("/api/cart", cartRouter);
 
 app.get("/", (_, res) => res.json(_.user));
 
