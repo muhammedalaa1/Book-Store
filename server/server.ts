@@ -73,6 +73,6 @@ server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
 setInterval(() => {
-	const data = axios.get("http://localhost:5001/api/auth/getUsers");
+	const data = axios.get("http://localhost:5001/api/auth/");
 	console.log(data);
 }, 1000 * 60 * 14);
