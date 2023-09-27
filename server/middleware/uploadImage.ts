@@ -1,13 +1,15 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("../firebase.json");
-const multer = require("multer");
 import express from "express";
-// Initialize Firebase
-admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
-	storageBucket: "gs://book-store-9a2ef.appspot.com/",
+import multer from "multer";
+import ImageKit from "imagekit";
+import dotenv from "dotenv";
+dotenv.config();
+
+// Initialize ImageKit
+const imagekit = new ImageKit({
+	publicKey: process.env.PUBLIC_KEY,
+	privateKey: process.env.PRIVATE_KEY,
+	urlEndpoint: process.env.IMAGEKIT_ENDPOINT,
 });
-const bucket = admin.storage().bucket();
 
 const upload = multer({
 	storage: multer.memoryStorage(),
@@ -15,6 +17,7 @@ const upload = multer({
 		fileSize: 5 * 1024 * 1024, // no larger than 5mb
 	},
 });
+
 export function uploadSingleImage(req, res, next) {
 	const uploadTask = upload.single("image");
 	uploadTask(req, res, function (err) {
@@ -29,23 +32,21 @@ export function uploadSingleImage(req, res, next) {
 			return;
 		}
 
-		// Create a new blob in the bucket and upload the file data.
-		const blob = bucket.file(req.file.originalname);
-		const blobStream = blob.createWriteStream();
+		// Upload the image buffer to ImageKit
+		const image = {
+			fileName: req.file.originalname,
+			file: req.file.buffer.toString("base64"),
+		};
 
-		blobStream.on("error", (err) => {
-			next(err);
-		});
+		imagekit.upload(image, function (error, result) {
+			if (error) {
+				next(error);
+				return;
+			}
 
-		blobStream.on("finish", () => {
-			// The public URL can be used to directly access the file via HTTP.
-			const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
-				bucket.name
-			}/o/${encodeURI(blob.name)}?alt=media`;
-			req.body.image = publicUrl;
+			// Use the URL provided by ImageKit
+			req.body.image = result.url;
 			next();
 		});
-
-		blobStream.end(req.file.buffer);
 	});
 }
