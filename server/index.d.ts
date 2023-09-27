@@ -7,6 +7,9 @@ declare global {
 		interface ProcessEnv {
 			ACCESS_TOKEN_SECRET: string;
 			AUTH_COOKIE: string;
+			PUBLIC_KEY: string;
+			PRIVATE_KEY: string;
+			IMAGEKIT_ENDPOINT: string;
 		}
 	}
 
