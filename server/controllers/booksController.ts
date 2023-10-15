@@ -10,13 +10,14 @@ import {
 import mongoose from "mongoose";
 
 const getAllBooks: express.RequestHandler = expressAsyncHandler(
-	async (req, res) => {
-		if (!req.query) {
+	async (req, res, next) => {
+		if (req.query.flag == "t") {
+			const featuredBooks = await Books.find().sort({ createdAt: -1 }).limit(5);
+			res.status(200).json(featuredBooks);
+		} else {
 			const books = await Books.find();
 			res.status(200).json(books);
 		}
-		const featuredBooks = await Books.find().sort({ createdAt: -1 }).limit(5);
-		res.status(200).json(featuredBooks);
 	}
 );
 const getBook: express.RequestHandler = expressAsyncHandler(
@@ -52,8 +53,7 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 			!category ||
 			!description
 		) {
-			res.status(400);
-			throw new Error("All fields are mandatory");
+			throw new APIError("All fields are mandatory", 400);
 		}
 		const book = await Books.create({
 			name,

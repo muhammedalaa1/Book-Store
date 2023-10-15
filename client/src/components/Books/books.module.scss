@@ -1,0 +1,39 @@
+.browse {
+  &:hover {
+    color: #7151ed;
+  }
+
+  @media (min-width:640px) {
+    &::before {
+      content: '';
+      background-color: #7151ed;
+      width: 0%;
+      border-radius: 6px;
+      height: 5px;
+      position: absolute;
+      bottom: -13px;
+      transition: width 0.3s ease 0s;
+    }
+
+    &:hover::before {
+      width: 100%;
+    }
+  }
+
+
+
+}
+
+
+.category:focus {
+
+  @media (max-width: 640px) {
+    background-color: #7151ed;
+    border-radius: 6px;
+    color: white;
+    transition: 300ms;
+    padding: 3px 0px 3px 0px;
+  }
+
+
+}

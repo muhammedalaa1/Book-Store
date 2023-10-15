@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 import multer from "multer";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";
@@ -18,8 +18,10 @@ const upload = multer({
 	},
 });
 
-export function uploadSingleImage(req, res, next) {
+export function uploadSingleImage(req: Request, res, next) {
 	const uploadTask = upload.single("image");
+	console.log(req.files);
+
 	uploadTask(req, res, function (err) {
 		if (err) {
 			return res.send(err);

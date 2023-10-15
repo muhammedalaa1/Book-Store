@@ -3,6 +3,7 @@ import expressAsyncHandler from "express-async-handler";
 import Cart from "../model/cart";
 import { APIError, cartUserError, validationError } from "../errors";
 import mongoose from "mongoose";
+import Book from "../model/book";
 
 const getUserCart: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
@@ -22,22 +23,29 @@ const getUserCart: express.RequestHandler = expressAsyncHandler(
 const createCart: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
 		const { userId, bookId, quantity } = req.body;
+
 		if (!bookId || !quantity || !userId) {
 			res.status(400);
 			throw new Error("bookId or quantity or userId not found");
 		}
 		if (!mongoose.isValidObjectId(bookId) || !mongoose.isValidObjectId(userId))
 			throw validationError();
+
 		let cart = await Cart.findOne({ userId });
+		let book = await Book.findById(bookId);
+		const { image, name, description } = book;
+
+		let price = book.price;
 		if (cart) {
-			const bookInCart = cart.books.find((b) => b.bookId === bookId);
-			if (bookInCart) bookInCart.quantity += quantity;
-			else cart.books.push({ bookId, quantity });
+			let bookInCart = cart.books.find((b) => b.bookId === bookId);
+			if (bookInCart) bookInCart.quantity = parseInt(quantity);
+			else
+				cart.books.push({ bookId, image, name, quantity, price, description });
 			await cart.save();
 		} else {
 			cart = await Cart.create({
 				userId,
-				books: [{ bookId, quantity }],
+				books: [{ bookId, image, name, quantity, price, description }],
 			});
 		}
 		res.status(201).json(cart);
@@ -47,9 +55,9 @@ const createCart: express.RequestHandler = expressAsyncHandler(
 const decreaseAmount: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
 		const { userId, bookId, quantity } = req.body;
-		const flag = req.query;
-
-		if (!userId || !bookId || !(quantity || flag)) {
+		const deleteItem = req.query["delete"];
+		console.log(deleteItem);
+		if (!userId || !bookId || !(quantity || deleteItem)) {
 			res.status(400);
 			throw new Error("bookId or quantity or userId not found");
 		}
@@ -62,8 +70,8 @@ const decreaseAmount: express.RequestHandler = expressAsyncHandler(
 		if (!cartItem) {
 			throw new APIError("this book is not in the cart", 404);
 		}
-		if (flag) cart.books = cart.books.filter((b) => b.bookId !== bookId);
-		if (cartItem.quantity > quantity) cartItem.quantity -= quantity;
+		if (deleteItem) cart.books = cart.books.filter((b) => b.bookId !== bookId);
+		if (cartItem.quantity > quantity) cartItem.quantity -= parseInt(quantity);
 		else cart.books = cart.books.filter((b) => b.bookId !== bookId);
 		await cart.save();
 		res.status(200).json(cart);

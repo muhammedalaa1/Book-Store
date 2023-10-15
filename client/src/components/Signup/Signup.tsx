@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useAuth } from "../../contexts/Auth";
-import { useNavigate } from "react-router-dom";
 import useDebouncedCallback from "../../hooks/useDebounce";
+import { SyncLoader } from "react-spinners";
+
 const Inputs = ({
 	handleInputChange,
 	value,
@@ -40,9 +41,10 @@ const Signup = () => {
 		phone: "",
 	});
 	const { signUp } = useAuth();
+	const [loading, setloading] = useState(false);
 
-	const debounceSignup = useDebouncedCallback(() => {
-		signUp(
+	const debounceSignup = useDebouncedCallback(async () => {
+		await signUp(
 			signUpData.userName,
 			signUpData.email,
 			signUpData.password,
@@ -52,10 +54,13 @@ const Signup = () => {
 				setsignUpData({ userName: "", password: "", email: "", phone: "" });
 			})
 			.catch((error: any) => console.log(error));
+		setloading(false);
 	});
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setloading(true);
+
 		debounceSignup();
 	};
 
@@ -74,11 +79,12 @@ const Signup = () => {
 					<img
 						src="../../.././undraw_sign_up_n6im.svg"
 						alt="Login_img"
-						className="w-96 h-auto hidden md:flex"
+						className="w-96 h-auto hidden lg:flex"
 					/>
+        
 					<form
 						action="submit"
-						className=" flex flex-col bg-gray-200 p-12 lg:w-6/12 rounded-xl shadow-lg"
+						className=" flex flex-col  p-12 lg:w-6/12 rounded-xl shadow-lg w-9/12"
 						onSubmit={handleSubmit}
 					>
 						<h2 className="font-semibold text-2xl">Please Sign Up</h2>
@@ -111,9 +117,23 @@ const Signup = () => {
 						<div className="w-full text-center justify-center flex-col items-center">
 							<button
 								type="submit"
-								className="bg-black text-white rounded-3xl hover:bg-violet-500 duration-500  transition-colors p-2 lg:w-1/2 w-full mt-4  "
+								className="bg-[#7151ed] border-2 loginBtn  border-[#7151ed] hover:bg-white  hover:text-[#7151ed] text-white  rounded-md  duration-300   transition-colors p-2  w-full mt-6 "
 							>
-								Sign up
+								<SyncLoader
+									color="white"
+									loading={loading}
+									size={7}
+									speedMultiplier={0.7}
+								/>
+								<span
+									className={`relative z-[1000] ${
+										loading ? "hidden" : "inline font-semibold"
+									}`}
+								>
+									{" "}
+									Sign up
+								</span>{" "}
+                
 							</button>
 						</div>
 					</form>
