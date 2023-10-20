@@ -143,7 +143,7 @@ const Cart = () => {
                 </div>
               ))}
             </div>
-            <div className="flex-1 mt-4 ml-6 p-3 border-[#ddd] border rounded-r-md rounded-l-md">
+            <div className="flex-1 mt-4 ml-6 p-3 border-[#ddd] border rounded-r-md rounded-l-md font-semibold">
               Order Summary
             </div>
           </div>
