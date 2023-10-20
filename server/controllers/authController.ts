@@ -55,9 +55,9 @@ export const Login = expressAsyncHandler(async (req, res) => {
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
 		httpOnly: true,
-		sameSite: "lax",
+        sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // Set SameSite to None for production
 		path: "/",
-		secure: false,
+		secure: process.env.NODE_ENV=="production",
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	exist.password = undefined;
