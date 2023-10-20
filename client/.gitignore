@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 package-lock.json
+_test.tsx
 dist
 dist-ssr
 *.local
