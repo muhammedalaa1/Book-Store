@@ -112,9 +112,7 @@ const Cart = () => {
                           <span className="text-sm">Move to Wishlist</span>
                         </button>
                         <button
-                          onClick={() =>
-                            handleCart(book?.bookId, book.quantity, true)
-                          }
+                          onClick={() => handleCart(book?.bookId, true)}
                           className="text-center text-xs  flex items-center hover:text-[#C40233] transition-colors duration-300 "
                         >
                           <FontAwesomeIcon icon={faTrashCan} fontSize={16} />{" "}
