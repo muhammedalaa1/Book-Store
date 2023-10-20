@@ -4,6 +4,9 @@ import User from "../model/user";
 import { APIError } from "../errors";
 import { createToken } from "../utils/jwtToken";
 import bcrypt, { compareSync } from "bcrypt";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 export const Register = expressAsyncHandler(async (req, res) => {
 	const hashedPassword = bcrypt.hashSync(req.body.password, 10);
@@ -52,9 +55,9 @@ export const Login = expressAsyncHandler(async (req, res) => {
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
 		httpOnly: true,
-		sameSite: "none",
+		sameSite: "lax",
 		path: "/",
-		secure: process.env.NODE_ENV === "production",
+		secure: false,
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	exist.password = undefined;

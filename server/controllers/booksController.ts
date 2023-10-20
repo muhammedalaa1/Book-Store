@@ -31,7 +31,6 @@ const getBook: express.RequestHandler = expressAsyncHandler(
 
 const addBook: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
-		console.log(req.body);
 		const {
 			name,
 			price,
