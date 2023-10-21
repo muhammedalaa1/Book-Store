@@ -68,7 +68,7 @@ app.use("/api/books", booksRouter);
 app.use("/api/cart", cartRouter);
 
 app.get("/", (_, res) => res.json(_.user));
-app.get("/m", (req,res) => {
+app.get("/m", async(req,res) => {
 	res.cookie("_meow", "ASD", {
 		httpOnly:  true,
         sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // kmmmmmmmmml m3ak Set SameSite to None for production
@@ -77,7 +77,7 @@ app.get("/m", (req,res) => {
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	}).send("DONE!");
 });
-app.get("/mm", (req,res) => {
+app.get("/mm", async(req,res) => {
 	res.json(req.cookies)
 })
 
