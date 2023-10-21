@@ -54,7 +54,7 @@ export const Login = expressAsyncHandler(async (req, res) => {
 		throw new APIError("Invalid Password", 400);
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
-		httpOnly: process.env.NODE_ENV == "production" ? false : true,
+		httpOnly:  true,
         sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // Set SameSite to None for production
 		path: "/",
 		secure: process.env.NODE_ENV=="production",
