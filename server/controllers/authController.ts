@@ -34,7 +34,7 @@ export const Register = expressAsyncHandler(async (req, res) => {
 	if (!user) throw new APIError("Failed to create user", 500);
 	const token = createToken(user);
 	res.cookie(process.env.AUTH_COOKIE, token, {
-		httpOnly: true,
+		httpOnly: process.env.NODE_ENV == "production" ? false : true,
         sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // Set SameSite to None for production
 		path: "/",
 		secure: process.env.NODE_ENV=="production",
@@ -54,7 +54,7 @@ export const Login = expressAsyncHandler(async (req, res) => {
 		throw new APIError("Invalid Password", 400);
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
-		httpOnly: true,
+		httpOnly: process.env.NODE_ENV == "production" ? false : true,
         sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // Set SameSite to None for production
 		path: "/",
 		secure: process.env.NODE_ENV=="production",
