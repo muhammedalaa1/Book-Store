@@ -3,23 +3,52 @@ import { useAuth } from "../../contexts/Auth";
 import FavoriteIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import "./cart.scss";
 import useDebouncedCallback from "../../hooks/useDebounce";
 import ReactLoading from "react-loading";
-import { useEffect } from "react";
+import { ChangeEvent, FormEvent, useLayoutEffect } from "react";
 import { Book } from "../../contexts/Auth";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
-
 import { useState } from "react";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 const Cart = () => {
-  const { cartItems, handleCart, handleAddBook } = useAuth();
+  const { cartItems, handleCart, handleAddBook, notifyError } = useAuth();
   const [loading, setLoading] = useState(false);
   const [cartQuantities, setCartQuantities] = useState<Book[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [Coupon, setCoupon] = useState("");
+  const [Display, setDisplay] = useState(true);
+  const [Clicked, setClicked] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const computedTotal =
+      cartItems?.books?.reduce((total, book) => {
+        return total + book.price * book.quantity;
+      }, 0) || 0;
+
+    setTotal(computedTotal);
     setCartQuantities(() => cartItems?.books || []);
   }, [cartItems]);
 
+  const handleCoupon = () => {
+    if (Coupon === "Discount") {
+      if (!Clicked) {
+        toast.success("Congratulations you got a 10% discount ! ", {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+      setClicked(!Clicked);
+    } else notifyError("No Coupon found with this name");
+  };
   const handleQuantityChange = (
     bookId: string | undefined,
     quantity: number
@@ -50,6 +79,10 @@ const Cart = () => {
     const book = cartQuantities.find((b) => b.bookId === bookId);
     return book?.quantity || 0; // return 0 or another default value if the book isn't found
   };
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("hello world");
+  };
   return (
     <>
       {loading && (
@@ -58,10 +91,10 @@ const Cart = () => {
         </div>
       )}
       {cartItems && !loading && (
-        <div className="custom-container">
+        <div className="container">
           <div className="md:flex ">
-            <div className="md:w-3/4 w-full">
-              <h1 className="text-xl font-medium">
+            <div className="md:w-3/5 w-full">
+              <h1 className="text-xl font-medium mt-4">
                 Cart{" "}
                 <span className="text-sm font-normal">
                   {" "}
@@ -71,7 +104,7 @@ const Cart = () => {
               {cartItems.books?.map((book) => (
                 <div
                   key={book._id}
-                  className="bg-white mt-8 p-4 rounded-md flex gap-12"
+                  className="bg-white mt-8 p-4 rounded-md flex md:flex-row flex-col md:items-start md:justify-start md:text-start items-center justify-center text-center gap-6  md:gap-12"
                 >
                   <Link
                     to={`/Book/${book.bookId}`}
@@ -85,7 +118,7 @@ const Cart = () => {
                     />
                   </Link>
                   <div className="flex-1">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between md:flex-row flex-col">
                       <h1 className="text-lg font-medium text-[#7151ed]">
                         {book.name}
                       </h1>
@@ -141,8 +174,95 @@ const Cart = () => {
                 </div>
               ))}
             </div>
-            <div className="flex-1 mt-4 ml-6 p-3 border-[#ddd] border rounded-r-md rounded-l-md font-semibold">
-              Order Summary
+            <div className=" flex flex-col mt-4 p-4  rounded-r-md rounded-l-md font-semibold md:w-2/5">
+              <div className="flex flex-col border-[#ddd] border p-4 sticky top-4">
+                Order Summary
+                <form
+                  action="submit"
+                  onSubmit={handleSubmit}
+                  className=" my-2 relative "
+                >
+                  <input
+                    type="text"
+                    className={`outline-none rounded-l-md bg-white py-2 md:w-5/6 md:p-2 w-full px-3   ${
+                      Clicked ? "text-slate-500" : "text-black"
+                    }`}
+                    placeholder="Enter the coupon code"
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      setCoupon(event.target.value)
+                    }
+                    value={Coupon}
+                    disabled={Clicked}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-[#7151ed] text-white p-2 rounded-r-md absolute h-full right-[-8px] md:min-w-[80px]"
+                    onClick={handleCoupon}
+                  >
+                    {Clicked ? "Remove" : "Apply"}
+                  </button>
+                </form>
+                <button
+                  className=" bg-white fansyHover  w-full p-1 rounded-md relative hover:after:w-full after:w-0 after:transition-all after:duration-300  after:absolute after:h-full after:bg-[#7151ed]  after:rounded-md after:left-0 after:top-0  "
+                  onClick={() => setDisplay(!Display)}
+                >
+                  <div className="text">
+                    <span className="transition-all duration-300 delay-150 ">
+                      <FontAwesomeIcon
+                        icon={faTags}
+                        className="pr-2 relative z-[1] "
+                      />
+                    </span>
+                    <span className="text-sm  relative z-[1] transition-all duration-300 delay-150  ">
+                      View Available Coupons
+                    </span>
+                  </div>
+                </button>
+                <div
+                  className={`mt-2 h-0 transition-all duration-300  ${
+                    Display ? "h-[10px]" : ""
+                  }`}
+                >
+                  <p
+                    className={`text-center text-[#7151ed] ransition-all duration-300 ${
+                      Display ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <span className="text-black">Use this : </span> Discount
+                  </p>
+                </div>
+                <div className="border-b border-b-gray-400 pb-4">
+                  <div className="flex justify-between mt-4">
+                    <p className="font-light text-sm tracking-wider">
+                      SubTotal ({cartItems.total} items)
+                    </p>
+                    <p className="font-normal">${total.toFixed(2)}</p>
+                  </div>
+                  <div className="flex justify-between mt-4">
+                    <p className="font-light text-sm tracking-wider">
+                      Shipping Fees :
+                    </p>
+                    <p className="font-normal text-[#7151ed]">Free</p>
+                  </div>
+                </div>
+                <div className="flex justify-between mt-8">
+                  <h4 className="text-xl">
+                    Total
+                    <span className="text-xs font-light">
+                      (Inclusive of VAT)
+                    </span>
+                  </h4>
+                  <p>
+                    $
+                    {Clicked ? `${(total * 0.9).toFixed(2)}` : total.toFixed(2)}
+                  </p>
+                </div>
+                <Link to={"/Checkout"}>
+                  <button className="bg-[#7151ed] border-2 loginBtn  border-[#7151ed] hover:bg-white  hover:text-[#7151ed] text-white  rounded-md  duration-300   transition-colors p-2  w-full mt-4 ">
+                    <span className="relative z-[1000]"> Checkout</span>
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

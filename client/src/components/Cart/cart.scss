@@ -1,0 +1,23 @@
+.fansyHover{
+    &:hover{
+        .text :nth-child(2){
+            color: white ; 
+        }
+        .text :nth-child(1){
+            color: white ; 
+        }
+        
+    }
+}
+
+.text{
+    & :first-child{
+        color:#7151ed;
+    }
+    & :nth-child(2){
+        color:#666;
+    }
+
+   
+    
+}

@@ -6,12 +6,12 @@ import "./index.css";
 import { ToastContainer, Slide } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	// <React.StrictMode>
-	<AuthProvider>
-		<BrowserRouter>
-			<App />
-			<ToastContainer transition={Slide} />
-		</BrowserRouter>
-	</AuthProvider>
-	// </React.StrictMode>
+  // <React.StrictMode>
+  <AuthProvider>
+    <BrowserRouter>
+      <App />
+      <ToastContainer transition={Slide} />
+    </BrowserRouter>
+  </AuthProvider>
+  // </React.StrictMode>
 );

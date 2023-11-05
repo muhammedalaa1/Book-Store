@@ -75,7 +75,7 @@ const Featured: React.FC<FeaturedProps> = ({
                           }  font-medium`}
                         >
                           <Link
-                            to={"/"}
+                            to={`/Book/${book._id}`}
                             className="hover:text-[#7151ed] duration-500 cursor-pointer"
                           >
                             {book.name}
@@ -121,7 +121,10 @@ const Featured: React.FC<FeaturedProps> = ({
                         </div>
                       </div>
                       <button className="p-2 mt-2 ml-2 rounded-3xl bg-[#ffffffad] hover:bg-white duration-500">
-                        <Link to={"/"} className="p-6 font-semibold">
+                        <Link
+                          to={`/Book/${book._id}`}
+                          className="p-6 font-semibold"
+                        >
                           View in Book Store
                         </Link>
                       </button>
