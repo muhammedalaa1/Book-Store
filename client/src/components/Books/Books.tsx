@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./books.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
