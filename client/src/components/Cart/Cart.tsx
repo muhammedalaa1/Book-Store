@@ -6,7 +6,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import "./cart.scss";
 import useDebouncedCallback from "../../hooks/useDebounce";
 import ReactLoading from "react-loading";
-import { ChangeEvent, FormEvent, useLayoutEffect } from "react";
+import { ChangeEvent, FormEvent, useEffect, useLayoutEffect } from "react";
 import { Book } from "../../contexts/Auth";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
@@ -31,6 +31,12 @@ const Cart = () => {
     setTotal(computedTotal);
     setCartQuantities(() => cartItems?.books || []);
   }, [cartItems]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [loading]);
 
   const handleCoupon = () => {
     if (Coupon === "Discount") {
