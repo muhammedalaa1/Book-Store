@@ -8,16 +8,19 @@ import Nav from "./components/NavBar/Nav";
 import Book from "./components/Book/Book";
 import Cart from "./components/Cart/Cart";
 import Footer from "./components/Footer/Footer";
+import Dashboard from "./components/Admin/Dashboard";
 
 function Protect({
   protect = false,
   children,
+  admin = false,
 }: {
   children: ReactNode;
   protect?: boolean;
+  admin?: boolean;
 }) {
   const authed = authenticated();
-
+  if (authed === protect && admin) return <Dashboard />;
   if (authed === protect) return children;
   return <Navigate to={protect ? "/login" : "/"} />;
 }
@@ -105,6 +108,15 @@ function App() {
             <Protect protect>
               {" "}
               <Cart />
+            </Protect>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <Protect protect admin>
+              {" "}
+              <Dashboard />
             </Protect>
           }
         />

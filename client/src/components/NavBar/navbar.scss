@@ -57,3 +57,16 @@
   transition: all 0.5s ease 0s;
 
 }
+.account-circle{
+  position: relative;
+  &::before{
+    content: "";
+    width: 7px;
+
+    top: 14px;
+    height: 20px;
+    border: 10px solid;
+    border-color: transparent transparent #ddd transparent;
+    position: absolute;
+  }
+}

@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Badge } from "@material-ui/core";
+import LogoutIcon from "@mui/icons-material/Logout";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
 import MegaMenu from "./MegaMenu";
 import "./navbar.scss";
 import Search from "./Search";
@@ -10,9 +14,15 @@ import DesktopMenu from "./DesktopMenu";
 import { useAuth } from "../../contexts/Auth";
 const Nav = () => {
   const [Button, setButton] = useState(false);
-
+  const [openProfile, setopenProfile] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const handleMenu = () => {
     setButton((prev) => !prev);
+  };
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
   };
   const { cartItems, user } = useAuth();
 
@@ -24,7 +34,46 @@ const Nav = () => {
             <div className="row flex md:flex-row flex-col justify-center gap-4 md:mx-12 items-center">
               <div className="md:w-1/2 flex md:justify-start justify-center w-full md:mb-2.5 text-[#888a92]  duration-500 text-base">
                 {user ? (
-                  <span className="mr-4">{user.userName}</span>
+                  <>
+                    <div
+                      onClick={() => setopenProfile(!openProfile)}
+                      className={`${
+                        openProfile
+                          ? "account-circle uppercase font-semibold"
+                          : ""
+                      }`}
+                    >
+                      <AccountCircle className="mr-16 hover:text-[#7151ed] cursor-pointer transition-all " />
+                      {openProfile && (
+                        <ul className=" absolute -translate-x-2 bg-[#ddd] p-3 z-50 rounded-lg translate-y-2 ">
+                          <li className="mb-3 relative">
+                            <PersonIcon />
+                            {user.userName}
+                          </li>
+
+                          {user.role === "admin" ? (
+                            <li className="mb-3 relative flex hover:text-[#7151ed] transition-all cursor-pointer ">
+                              <DashboardIcon />
+
+                              <Link to={"/dashboard"} className="flex">
+                                {" "}
+                                Dashboard
+                              </Link>
+                            </li>
+                          ) : (
+                            <></>
+                          )}
+                          <li className="relative hover:text-[#7151ed] transition-all">
+                            {" "}
+                            <LogoutIcon />
+                            <button onClick={handleLogout}>Logout</button>
+                          </li>
+                        </ul>
+                      )}{" "}
+                    </div>
+
+                    {/* <span className="mr-4">{user.userName}</span> */}
+                  </>
                 ) : (
                   <Link to={"/login"} className=" hover:text-[#7151ed] mr-5">
                     <span className="">Login/Register</span>

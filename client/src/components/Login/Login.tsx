@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent } from "react";
+import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 import "./login.scss";
@@ -38,6 +38,12 @@ const Login: React.FC = () => {
   const [loginData, setloginData] = useState({ email: "", password: "" });
   const { login } = useAuth();
   const [loading, setloading] = useState(false);
+  useEffect(() => {
+    window.scrollTo({
+      top: 140,
+      behavior: "smooth",
+    });
+  }, []);
 
   const debounceLogin = useDebouncedCallback(async () => {
     await login(loginData.email, loginData.password);

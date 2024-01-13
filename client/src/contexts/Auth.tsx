@@ -13,6 +13,7 @@ export interface User {
   email: string;
   userName: string;
   _id: number;
+  role: string;
 }
 export interface Book {
   _id: string;

@@ -101,7 +101,10 @@ const Footer = () => {
                 <h4 className=" font-semibold mb-4 text-center">Genres</h4>
                 <ul className="grid xl:grid-cols-2 grid-cols-1 xl:gap-0 gap-2  h-full justify-center items-center text-center ">
                   {unique.map((item) => (
-                    <li className=" xl:mr-4 hover:text-[#7151ed] cursor-pointer transition-all text-[#888a92] font-semibold">
+                    <li
+                      key={item}
+                      className=" xl:mr-4 hover:text-[#7151ed] cursor-pointer transition-all text-[#888a92] font-semibold"
+                    >
                       {item}
                     </li>
                   ))}
