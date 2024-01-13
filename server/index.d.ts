@@ -11,6 +11,7 @@ declare global {
 			PRIVATE_KEY: string;
 			IMAGEKIT_ENDPOINT: string;
 			NODE_ENV:string;
+			
 		}
 	}
 

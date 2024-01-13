@@ -14,7 +14,6 @@ dotenv.config();
 import type { Request, Response } from "express";
 import axios from "axios";
 import FloodManager from "./flood";
-
 const flood = new FloodManager({
 	times: 10,
 	resetTime: 60,
@@ -31,7 +30,6 @@ app.disable("x-powered-by");
 
 // Connect to DB
 connectDB();
-
 // Cross Origin Resource Sharing
 const allowedOrigins = [
 	"http://localhost:5173",
@@ -54,27 +52,21 @@ app.use(
 	})
 );
 
-// Built-in middleware to handle urlencoded form data
 app.use(express.urlencoded({ extended: false }));
 
-// Built-in middleware for json
 app.use(express.json());
 
-// Assuming you converted ./routes/books to TypeScript, you can use ES6 import.
 // app.use(flood.middleware());
 app.use(auth);
 app.use("/api/auth", Auth);
 app.use("/api/books", booksRouter);
 app.use("/api/cart", cartRouter);
-
 app.get("/", (_, res) => res.json(_.user));
-
-
 app.use(errorhandler);
 server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
 setInterval(() => {
-	const data = axios.get("http://localhost:5001/api/auth/");
+	const data = axios.get("https://book-stpre.onrender.com/api/auth/");
 	console.log(data);
 }, 1000 * 60 * 14);
