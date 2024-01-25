@@ -24,7 +24,7 @@ const MegaMenu = () => {
 						<li className="mb-4 md:mb-0">Home</li>
 					</Link>
 
-					<li className="relative mb-4 md:mb-0">
+					<div className="relative mb-4 md:mb-0">
 						<Link to={"/"} className="md:p-4 p-0">
 							About
 							<div
@@ -155,7 +155,7 @@ const MegaMenu = () => {
 						<Link to={"/"}>
 							<li className="mt-4 md:mt-0">FAQ</li>
 						</Link>
-					</li>
+					</div>
 				</ul>
 			</nav>
 		</div>

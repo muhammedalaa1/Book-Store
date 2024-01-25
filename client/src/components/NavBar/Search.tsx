@@ -95,7 +95,6 @@ const Search = () => {
 													src={book.image}
 													alt=""
 													className="w-2/12 h-auto"
-													loading="lazy"
 												/>
 												<div className="flex-col ">
 													<span className="text-xl font-semibold">

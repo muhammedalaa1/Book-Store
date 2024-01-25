@@ -8,6 +8,7 @@ import {
 	searchError,
 } from "../errors";
 import mongoose from "mongoose";
+import { getPixelData } from "../utils/pixelExtractor";
 
 const getAllBooks: express.RequestHandler = expressAsyncHandler(
 	async (req, res, next) => {
@@ -41,7 +42,7 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 			category,
 			description,
 		} = req.body;
-
+		console.log(req.body);
 		if (
 			!name ||
 			!quantity ||
@@ -54,6 +55,21 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 		) {
 			throw new APIError("All fields are mandatory", 400);
 		}
+
+		const css = await getPixelData(image);
+		let font;
+		let boxShadowValue;
+		if (css[0] > 100 && css[1] > 100) {
+			font = 0;
+		} else {
+			font = 1;
+		}
+		boxShadowValue = `rgba(${css[0]}, ${css[1]}, ${css[2]}, ${css[3] / 255})`;
+		const cssDocument = {
+			font,
+			boxShadowValue,
+		};
+
 		const book = await Books.create({
 			name,
 			price,
@@ -63,6 +79,7 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 			publisher,
 			image,
 			description,
+			css: cssDocument,
 		});
 
 		res.status(201).json(book);

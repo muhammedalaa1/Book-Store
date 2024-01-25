@@ -7,7 +7,6 @@ import bcrypt, { compareSync } from "bcrypt";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 export const Register = expressAsyncHandler(async (req, res) => {
 	const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 	const { userName, email, password, phone } = req.body;
@@ -35,9 +34,9 @@ export const Register = expressAsyncHandler(async (req, res) => {
 	const token = createToken(user);
 	res.cookie(process.env.AUTH_COOKIE, token, {
 		httpOnly: process.env.NODE_ENV == "production" ? false : true,
-        sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  // Set SameSite to None for production
+		sameSite: process.env.NODE_ENV == "production" ? "none" : "lax", // Set SameSite to None for production
 		path: "/",
-		secure: process.env.NODE_ENV=="production",
+		secure: process.env.NODE_ENV == "production",
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	user = { ...user.toObject(), token } as any;
@@ -46,7 +45,7 @@ export const Register = expressAsyncHandler(async (req, res) => {
 
 export const Login = expressAsyncHandler(async (req, res) => {
 	const { email, password } = req.body;
-
+	if (!email || !password) throw new APIError("Check Fields", 400);
 	let exist = await User.findOne({ email });
 	if (!exist) throw new APIError("There is no account with this email", 400);
 
@@ -54,10 +53,10 @@ export const Login = expressAsyncHandler(async (req, res) => {
 		throw new APIError("Invalid Password", 400);
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
-		httpOnly:  true,
-        sameSite: process.env.NODE_ENV=="production" ? "none" : "lax",  
+		httpOnly: true,
+		sameSite: process.env.NODE_ENV == "production" ? "none" : "lax",
 		path: "/",
-		secure: process.env.NODE_ENV=="production",
+		secure: process.env.NODE_ENV == "production",
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
 	});
 	exist.password = undefined;

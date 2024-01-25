@@ -9,6 +9,7 @@ interface IBook extends Document {
 	category: string;
 	description: string;
 	image: string;
+	css: { font?: number; boxShadowValue?: string }[];
 }
 
 const bookSchema: Schema = new Schema(
@@ -45,6 +46,16 @@ const bookSchema: Schema = new Schema(
 			type: String,
 			required: [true, "Please Write the description"],
 		},
+		css: [
+			{
+				font: {
+					type: Number,
+				},
+				boxShadowValue: {
+					type: String,
+				},
+			},
+		],
 	},
 	{
 		timestamps: true,
