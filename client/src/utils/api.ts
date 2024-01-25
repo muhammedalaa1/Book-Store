@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-	baseURL: "http://localhost:5001/",
+	baseURL: "https://book-stpre.onrender.com",
 });
 
 //https://book-stpre.onrender.com
