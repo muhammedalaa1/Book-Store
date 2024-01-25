@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import { StarOutlineOutlined } from "@material-ui/icons";
 
 const Featured = () => {
-	const { FeaturedBooks, AllBooks } = useAuth();
-	console.log(AllBooks[0].css[0].font);
+	const { FeaturedBooks } = useAuth();
 
 	return (
 		<>
