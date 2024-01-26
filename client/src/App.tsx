@@ -1,4 +1,4 @@
-import { type ReactNode, lazy } from "react";
+import { type ReactNode, lazy, Suspense } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 const Login = lazy(() => import("./components/Login/Login"));
 const Signup = lazy(() => import("./components/Signup/Signup"));
@@ -37,39 +37,54 @@ function App() {
 				<Route
 					path="/login"
 					element={
-						<Protect>
-							<Login />
-						</Protect>
+						<Suspense fallback="Loading">
+							<Protect>
+								<Login />
+							</Protect>
+						</Suspense>
 					}
 				/>
 				<Route
 					path="/signup"
 					element={
-						<Protect>
-							{" "}
-							<Signup />
-						</Protect>
+						<Suspense fallback="Loading">
+							<Protect>
+								{" "}
+								<Signup />
+							</Protect>
+						</Suspense>
 					}
 				/>
 				<Route
 					path="/cart"
 					element={
-						<Protect protect>
-							{" "}
-							<Cart />
-						</Protect>
+						<Suspense fallback="Loading">
+							<Protect protect>
+								{" "}
+								<Cart />
+							</Protect>
+						</Suspense>
 					}
 				/>
 				<Route
 					path="/dashboard"
 					element={
-						<Protect protect admin>
-							{" "}
-							<Dashboard />
-						</Protect>
+						<Suspense fallback="Loading">
+							<Protect protect admin>
+								{" "}
+								<Dashboard />
+							</Protect>
+						</Suspense>
 					}
 				/>
-				<Route path="/Book/:id" element={<Book />} />
+				<Route
+					path="/Book/:id"
+					element={
+						<Suspense fallback="Loading">
+							<Book />{" "}
+						</Suspense>
+					}
+				/>
 			</Routes>
 			{!dashboard && <Footer />}
 		</>
