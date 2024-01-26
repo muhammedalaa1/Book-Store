@@ -46,7 +46,7 @@ const Featured = () => {
 									{FeaturedBooks.map((book) => (
 										<SwiperSlide
 											key={book._id}
-											className={` rounded-xl h-[300px]    md:h-[245px] `}
+											className={` rounded-xl h-[300px] pb-6    md:h-[245px] `}
 											style={{ backgroundColor: book.css[0].boxShadowValue }}
 										>
 											<div className="p-3 ">
