@@ -34,7 +34,7 @@ connectDB();
 const allowedOrigins = [
 	"http://localhost:5173",
 	"https://book-stpre.onrender.com",
-	"https://book-store-qd6a.vercel.app"
+	"https://book-store-qd6a.vercel.app",
 ];
 
 app.use(
