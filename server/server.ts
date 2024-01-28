@@ -67,6 +67,6 @@ server.listen(PORT, () => {
 	console.log(`server is running on port ${PORT}`);
 });
 setInterval(() => {
-	const data = axios.get("https://book-stpre.onrender.com/api/auth/");
+	const data = axios.get("https://bookstore-303p.onrender.com/api/auth/");
 	console.log(data);
 }, 1000 * 60 * 14);
