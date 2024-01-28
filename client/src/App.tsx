@@ -7,20 +7,25 @@ const Nav = lazy(() => import("./components/NavBar/Nav"));
 const Book = lazy(() => import("./components/Book/Book"));
 const Cart = lazy(() => import("./components/Cart/Cart"));
 const Footer = lazy(() => import("./components/Footer/Footer"));
-const Dashboard = lazy(() => import("./components/Admin/Dashboard"));
+const Dashboard = lazy(() => import("./components/Admin/layout/Dashboard"));
 import { authenticated } from "./contexts/Auth";
+import AddBook from "./components/Admin/AddBook";
+import DeleteBook from "./components/Admin/DeleteBook";
 
 function Protect({
 	protect = false,
 	children,
 	admin = false,
+	name = "",
 }: {
 	children: ReactNode;
 	protect?: boolean;
 	admin?: boolean;
+	name?: string;
 }) {
 	const authed = authenticated();
-	if (authed === protect && admin) return <Dashboard />;
+	if (authed === protect && admin)
+		return <Dashboard name={name}>{children}</Dashboard>;
 	if (authed === protect) return children;
 	return <Navigate to={protect ? "/login" : "/"} />;
 }
@@ -32,60 +37,63 @@ function App() {
 		<>
 			{" "}
 			{!dashboard && <Nav />}
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route
-					path="/login"
-					element={
-						<Suspense fallback="Loading">
+			<Suspense fallback="Loading">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route
+						path="/login"
+						element={
 							<Protect>
 								<Login />
 							</Protect>
-						</Suspense>
-					}
-				/>
-				<Route
-					path="/signup"
-					element={
-						<Suspense fallback="Loading">
+						}
+					/>
+					<Route
+						path="/signup"
+						element={
 							<Protect>
 								{" "}
 								<Signup />
 							</Protect>
-						</Suspense>
-					}
-				/>
-				<Route
-					path="/cart"
-					element={
-						<Suspense fallback="Loading">
+						}
+					/>
+					<Route
+						path="/cart"
+						element={
 							<Protect protect>
 								{" "}
 								<Cart />
 							</Protect>
-						</Suspense>
-					}
-				/>
-				<Route
-					path="/dashboard"
-					element={
-						<Suspense fallback="Loading">
-							<Protect protect admin>
+						}
+					/>
+					<Route
+						path="/dashboard"
+						element={
+							<Protect protect admin name="Add Book">
 								{" "}
-								<Dashboard />
+								<AddBook />
 							</Protect>
-						</Suspense>
-					}
-				/>
-				<Route
-					path="/Book/:id"
-					element={
-						<Suspense fallback="Loading">
-							<Book />{" "}
-						</Suspense>
-					}
-				/>
-			</Routes>
+						}
+					/>
+					<Route
+						path="/dashboard/addbook"
+						element={
+							<Protect protect admin name="Add Book">
+								<AddBook />
+							</Protect>
+						}
+					/>
+					<Route
+						path="/dashboard/deletebook"
+						element={
+							<Protect protect admin name="Delete Book">
+								<DeleteBook />
+							</Protect>
+						}
+					/>
+					<Route path="/Book/:id" element={<Book />} />
+				</Routes>
+			</Suspense>
 			{!dashboard && <Footer />}
 		</>
 	);

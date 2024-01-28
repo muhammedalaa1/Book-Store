@@ -334,7 +334,6 @@ const Book = () => {
 					</section>
 				</div>
 			)}
-			: ( "Loading" )
 		</>
 	);
 };

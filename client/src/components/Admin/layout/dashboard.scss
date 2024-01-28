@@ -13,3 +13,31 @@
   color: white;
   text-transform: uppercase;
 }
+
+.page {
+  display: flex;
+}
+
+aside {
+
+  transition: all 0.3s ease 0s;
+}
+
+
+.right {
+  background-color: blue;
+  width: 100%;
+  height: 200vh;
+}
+
+
+
+@media (max-width: 430px) {
+  aside {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}

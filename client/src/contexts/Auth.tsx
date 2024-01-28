@@ -44,7 +44,9 @@ export const AuthContext = createContext<{
 	logout: () => void;
 	login: (email: string, password: string) => void;
 	getCart: () => void;
+	notifyLogin: (msg: string) => void;
 	notifyError: (msg: string) => void;
+	notifyAdd: (msg: string, img: string | null) => void;
 	signUp: (
 		userName: string,
 		password: string,
@@ -137,7 +139,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			progress: undefined,
 			theme: "dark",
 		});
-	const notifyAdd = (msg: string, img: string) =>
+	const notifyAdd = (msg: string, img: string | null) =>
 		toast.success(msg, {
 			position: "top-right",
 			autoClose: 3000,
@@ -147,7 +149,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			draggable: false,
 			progress: undefined,
 			theme: "dark",
-			icon: () => <img src={img} />,
+			icon: () => (img ? <img src={img} /> : null),
 		});
 	const notifyRemoved = (msg: string) =>
 		toast.success(msg, {
@@ -270,11 +272,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				login,
 				signUp,
 				notifyError,
+				notifyAdd,
 				FeaturedBooks,
 				cartItems,
 				getCart,
 				handleAddBook,
 				handleCart,
+				notifyLogin,
 			}}
 		>
 			{fetched ? children : null}
