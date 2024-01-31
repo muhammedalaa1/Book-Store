@@ -34,7 +34,7 @@ export const Register = expressAsyncHandler(async (req, res) => {
 	const token = createToken(user);
 	res.cookie(process.env.AUTH_COOKIE, token, {
 		httpOnly: process.env.NODE_ENV == "production" ? false : true,
-		sameSite: "lax", // Set SameSite to None for production
+		sameSite: process.env.NODE_ENV == "production" ? "none" : "lax", // Set SameSite to None for production
 		path: "/",
 		secure: process.env.NODE_ENV == "production",
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
@@ -54,7 +54,7 @@ export const Login = expressAsyncHandler(async (req, res) => {
 	const token = createToken(exist);
 	res.cookie(process.env.AUTH_COOKIE, token, {
 		httpOnly: true,
-		sameSite: "lax",
+		sameSite: process.env.NODE_ENV == "production" ? "none" : "lax",
 		path: "/",
 		secure: process.env.NODE_ENV == "production",
 		expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 6),
