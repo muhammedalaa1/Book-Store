@@ -27,7 +27,6 @@ const app: Application = express();
 const server = http.createServer(app);
 const PORT: string | number = process.env.PORT || 3500;
 app.disable("x-powered-by");
-
 // Connect to DB
 connectDB();
 // Cross Origin Resource Sharing
