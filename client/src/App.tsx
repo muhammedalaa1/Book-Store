@@ -8,7 +8,7 @@ const Book = lazy(() => import("./components/Book/Book"));
 const Cart = lazy(() => import("./components/Cart/Cart"));
 const Footer = lazy(() => import("./components/Footer/Footer"));
 const Dashboard = lazy(() => import("./components/Admin/layout/Dashboard"));
-import { authenticated } from "./contexts/Auth";
+import { authenticated, useAuth } from "./contexts/Auth";
 import AddBook from "./components/Admin/AddBook";
 import DeleteBook from "./components/Admin/DeleteBook";
 
@@ -17,22 +17,34 @@ function Protect({
 	children,
 	admin = false,
 	name = "",
+	role = "user",
 }: {
 	children: ReactNode;
 	protect?: boolean;
 	admin?: boolean;
 	name?: string;
+	role?: string;
 }) {
 	const authed = authenticated();
-	if (authed === protect && admin)
+	console.log(authed);
+	if (authed === protect && role === "admin")
 		return <Dashboard name={name}>{children}</Dashboard>;
+	if (
+		authed === protect &&
+		role === "user" &&
+		authed !== true &&
+		name !== "login"
+	)
+		return <Navigate to={"/"} />;
 	if (authed === protect) return children;
 	return <Navigate to={protect ? "/login" : "/"} />;
 }
 
 function App() {
 	const location = useLocation();
+	const allowed = useAuth().user;
 	const dashboard = location.pathname.startsWith("/dashboard");
+
 	return (
 		<>
 			{" "}
@@ -43,7 +55,7 @@ function App() {
 					<Route
 						path="/login"
 						element={
-							<Protect>
+							<Protect name="login">
 								<Login />
 							</Protect>
 						}
@@ -69,7 +81,7 @@ function App() {
 					<Route
 						path="/dashboard"
 						element={
-							<Protect protect admin name="Add Book">
+							<Protect protect admin name="Add Book" role={allowed?.role}>
 								{" "}
 								<AddBook />
 							</Protect>
@@ -78,7 +90,7 @@ function App() {
 					<Route
 						path="/dashboard/addbook"
 						element={
-							<Protect protect admin name="Add Book">
+							<Protect protect admin name="Add Book" role={allowed?.role}>
 								<AddBook />
 							</Protect>
 						}
@@ -86,7 +98,7 @@ function App() {
 					<Route
 						path="/dashboard/deletebook"
 						element={
-							<Protect protect admin name="Delete Book">
+							<Protect protect admin name="Delete Book" role={allowed?.role}>
 								<DeleteBook />
 							</Protect>
 						}
