@@ -15,13 +15,11 @@ import DeleteBook from "./components/Admin/DeleteBook";
 function Protect({
 	protect = false,
 	children,
-	admin = false,
 	name = "",
 	role = "user",
 }: {
 	children: ReactNode;
 	protect?: boolean;
-	admin?: boolean;
 	name?: string;
 	role?: string;
 }) {
@@ -81,7 +79,7 @@ function App() {
 					<Route
 						path="/dashboard"
 						element={
-							<Protect protect admin name="Add Book" role={allowed?.role}>
+							<Protect protect name="Add Book" role={allowed?.role}>
 								{" "}
 								<AddBook />
 							</Protect>
@@ -90,7 +88,7 @@ function App() {
 					<Route
 						path="/dashboard/addbook"
 						element={
-							<Protect protect admin name="Add Book" role={allowed?.role}>
+							<Protect protect name="Add Book" role={allowed?.role}>
 								<AddBook />
 							</Protect>
 						}
@@ -98,7 +96,7 @@ function App() {
 					<Route
 						path="/dashboard/deletebook"
 						element={
-							<Protect protect admin name="Delete Book" role={allowed?.role}>
+							<Protect protect name="Delete Book" role={allowed?.role}>
 								<DeleteBook />
 							</Protect>
 						}
