@@ -53,12 +53,16 @@ export const AuthContext = createContext<{
 		phone: string,
 		email: string
 	) => Promise<any>;
+	OpenDialog: boolean;
+	setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }>(null as any);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 	const [user, setUser] = useState<User>();
 	const [fetched, setFetched] = useState<boolean>(false);
 	const [AllBooks, setAllBooks] = useState<Book[]>([]);
+	const [OpenDialog, setOpenDialog] = useState(true);
+
 	const [FeaturedBooks, setFeaturedBooks] = useState<Book[]>([]);
 	const [cartItems, setCartItems] = useState<Cart | undefined>(undefined);
 
@@ -70,6 +74,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 					setUser(data);
 					console.log(data);
 				}
+			} catch {
+				console.log("error");
 			} finally {
 				setFetched(true);
 			}
@@ -268,6 +274,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 			value={{
 				user,
 				AllBooks,
+				OpenDialog,
+				setOpenDialog,
 				logout,
 				login,
 				signUp,

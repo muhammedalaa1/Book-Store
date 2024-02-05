@@ -31,6 +31,15 @@ aside {
 }
 
 
+.dashboard-sidebar {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+}
+
+.dashboard-header {
+  box-shadow: rgba(100, 100, 111, 0.2) 30px 7px 29px 0px;
+
+}
 
 @media (max-width: 430px) {
   aside {

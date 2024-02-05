@@ -44,45 +44,51 @@ const AddBook = () => {
 				encType="multipart/form-data"
 				ref={form}
 			>
-				<label>Book name </label>
+				<label className="font-medium text-lg">Book name </label>
 				<input
 					type="text"
 					name="name"
-					className=" text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
+					placeholder="Book Name"
+					className="text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Price </label>
+				<label className="font-medium text-lg">Price </label>
 				<input
 					type="number"
 					name="price"
+					placeholder="Price"
 					min={10}
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Quantity </label>
+				<label className="font-medium text-lg">Quantity </label>
 				<input
 					type="number"
 					name="quantity"
+					placeholder="Quantity"
 					min={1}
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Author </label>
+				<label className="font-medium text-lg">Author </label>
 				<input
 					type="text"
 					name="author"
+					placeholder="Author"
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Publisher </label>
+				<label className="font-medium text-lg">Publisher </label>
 				<input
 					type="text"
 					name="publisher"
+					placeholder="Publisher"
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Category </label>
+				<label className="font-medium text-lg">Category </label>
 				<input
 					type="text"
 					name="category"
+					placeholder="Category"
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 				/>
-				<label>Image </label>
+				<label className="font-medium text-lg">Image </label>
 				<label
 					className="flex  cursor-pointer appearance-none justify-center rounded-md border border-dashed border-gray-300 bg-white px-3 py-4 text-sm transition hover:border-gray-400 focus:border-solid focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:opacity-75"
 					tabIndex={0}
@@ -135,11 +141,11 @@ const AddBook = () => {
 					/> */}
 					<input name="image" type="file" />
 				</label>
-				<label>Description</label>
+				<label className="font-medium text-lg">Description</label>
 				<TextareaAutosize
 					className="' text-sm font-sans font-normal leading-5 px-3 py-2 rounded-lg shadow-md shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600  dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
 					aria-label="Demo input"
-					placeholder="Empty"
+					placeholder="Description"
 					name="description"
 				/>
 				<div className="col-span-2 flex justify-center ">
