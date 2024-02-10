@@ -51,8 +51,6 @@ const Cart = () => {
     });
   }, [loading]);
   const handleCheckout = async () => {
-    console.log("dskalhd");
-    console.log(cartItems);
     await api
       .post("/api/stripeRouter/create-checkout-session", {
         cartItems,
@@ -143,6 +141,16 @@ const Cart = () => {
         <div className="text-center flex justify-center items-center ">
           <ReactLoading type="bubbles" color="#7151ed" />
         </div>
+      )}
+      {!cartItems && (
+        <>
+          <h1 className="text-lg mt-12 text-center">No Items</h1>
+          <div className="flex justify-center items-center">
+            <button className="bg-[#7151ed] border-2border-[#7151ed] w-1/4 mt-4 hover:bg-white  hover:text-[#7151ed] text-white  rounded-md  duration-300   transition-colors p-2   ">
+              <Link to={"/"}>Go Shopping</Link>
+            </button>{" "}
+          </div>
+        </>
       )}
       {cartItems && !loading && (
         <div className="container">

@@ -1,24 +1,22 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import api from "../../utils/api";
 import { useAuth } from "../../contexts/Auth";
 import { useNavigate } from "react-router-dom";
 
 const Completion = () => {
-  const { user, cartItems } = useAuth();
+  const { user, cartItems, setCartItems } = useAuth();
   const navigate = useNavigate();
   console.log(cartItems);
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const deleteCart = async () => {
+      await api.delete(`api/cart?userId=${user?._id}`);
+      setCartItems(undefined);
+    };
     if (cartItems === undefined) {
       navigate("/", { replace: true });
-    } else {
-      const deleteCart = async () => {
-        await api.delete(`api/cart?userId=${user?._id}`);
-      };
-      deleteCart();
     }
-
-    console.log("ksadfgak");
-  }, [cartItems]);
+    deleteCart();
+  }, []);
 
   return (
     <>

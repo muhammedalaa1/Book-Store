@@ -131,6 +131,7 @@ function App() {
               </Protect>
             }
           />
+          <Route path="/Completion" element={<Completion />} />
           <Route
             path="/dashboard/modifybook"
             element={
