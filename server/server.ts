@@ -17,7 +17,7 @@ import axios from "axios";
 import FloodManager from "./flood";
 import Cart from "./model/cart";
 const flood = new FloodManager({
-	times: 20,
+	times: 100,
 	resetTime: 60,
 	waitTime: 1500,
 	ifFail: (_req: Request, res: Response) => res.sendStatus(429),
