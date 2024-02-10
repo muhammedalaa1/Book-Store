@@ -305,10 +305,7 @@ const Cart = () => {
                       Discount :
                     </p>
                     <p className="font-normal text-[#7151ed]">
-                      $
-                      {cartItems.coupon
-                        ? (total - total * 0.9).toFixed(2)
-                        : total}
+                      ${cartItems.coupon ? (total - total * 0.9).toFixed(2) : 0}
                     </p>
                   </div>
                 </div>
