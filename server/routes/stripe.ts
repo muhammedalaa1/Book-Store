@@ -87,8 +87,10 @@ router.post('/create-checkout-session', async (req, res) => {
     },
       line_items,
       mode: 'payment',
-      success_url: 'http://localhost:5173/Completion',
-      cancel_url: 'http://localhost:5173/Cart',
+
+
+      success_url: 'https://book-store-qd6a.vercel.app/Completion',
+      cancel_url: 'https://book-store-qd6a.vercel.app/Cart',
     });
  
 
