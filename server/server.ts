@@ -10,12 +10,14 @@ import cartRouter from "./routes/cart";
 import { auth } from "./middleware/authentication";
 import Auth from "./routes/auth";
 import http from "http";
+import stripeRouter from "./routes/stripe"
 dotenv.config();
 import type { Request, Response } from "express";
 import axios from "axios";
 import FloodManager from "./flood";
+import Cart from "./model/cart";
 const flood = new FloodManager({
-	times: 10,
+	times: 20,
 	resetTime: 60,
 	waitTime: 1500,
 	ifFail: (_req: Request, res: Response) => res.sendStatus(429),
@@ -27,6 +29,7 @@ const app: Application = express();
 const server = http.createServer(app);
 const PORT: string | number = process.env.PORT || 3500;
 app.disable("x-powered-by");
+
 // Connect to DB
 connectDB();
 // Cross Origin Resource Sharing
@@ -55,11 +58,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
-// app.use(flood.middleware());
 app.use(auth);
 app.use("/api/auth", Auth);
+app.use(flood.middleware());
+
 app.use("/api/books", booksRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/stripeRouter",stripeRouter);
+
 app.get("/", (_, res) => res.json(_.user));
 app.use(errorhandler);
 server.listen(PORT, () => {

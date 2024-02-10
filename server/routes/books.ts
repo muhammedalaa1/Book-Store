@@ -14,7 +14,7 @@ router.route("/search").get(Controller.searchBook);
 router
 	.route("/:bookId")
 	.get(Controller.getBook)
-	.post(uploadSingleImage, Controller.updateBook)
+	.patch(uploadSingleImage, Controller.updateBook)
 	.put(Controller.buyBook)
 	.delete(allowAdmin("admin"), Controller.deleteBook);
 

@@ -1,10 +1,11 @@
 import expressAsyncHandler from "express-async-handler";
 import express from "express";
 import User from "../model/user";
-import { APIError } from "../errors";
+import { APIError, validationError } from "../errors";
 import { createToken } from "../utils/jwtToken";
 import bcrypt, { compareSync } from "bcrypt";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 export const Register = expressAsyncHandler(async (req, res) => {
@@ -73,7 +74,16 @@ export const Logout = expressAsyncHandler(async (req, res) => {
 
 export const getAllUsers: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
-		const users = await User.countDocuments();
-		res.status(200).json({ count: users });
+		const users = await User.find();
+		const number = await User.countDocuments();
+		res.status(200).json({users , number});
 	}
 );
+export const deleteUser : express.RequestHandler = expressAsyncHandler(async(req,res) =>{
+	
+	if (!mongoose.isValidObjectId(req.params.userId)) throw validationError();
+
+	let exist = await User.findByIdAndDelete( req.params.userId );
+	if (!exist) throw new APIError("There is no account with this id", 404);
+	res.status(204).end();
+})

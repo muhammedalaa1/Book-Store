@@ -5,6 +5,7 @@ import {
 	Login,
 	Logout,
 	getAllUsers,
+	deleteUser,
 } from "../controllers/authController";
 import { isLogged } from "../middleware/authentication";
 import { APIError } from "../errors";
@@ -13,6 +14,7 @@ import { allowAdmin } from "../middleware/authentication";
 router.route("/").all((_, res) => res.json(_.user));
 
 router.route("/getUsers").get(allowAdmin("admin"), getAllUsers);
+router.route("/deleteUser/:userId").delete(allowAdmin("admin"),deleteUser);
 
 router
 	.route("/register")

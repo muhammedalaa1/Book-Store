@@ -9,6 +9,11 @@ import {
 } from "../errors";
 import mongoose from "mongoose";
 import { getPixelData } from "../utils/pixelExtractor";
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2023-10-16',
+});
 
 const getAllBooks: express.RequestHandler = expressAsyncHandler(
 	async (req, res, next) => {
@@ -88,12 +93,12 @@ const addBook: express.RequestHandler = expressAsyncHandler(
 
 const updateBook: express.RequestHandler = expressAsyncHandler(
 	async (req, res) => {
+		console.log(req.body)
 		if (!mongoose.isValidObjectId(req.params.bookId)) throw validationError();
 		const book = await Books.findByIdAndUpdate(req.params.bookId, req.body, {
 			new: true,
 		});
 		if (!book) throw new APIError("No book found", 404);
-
 		res.status(200).json(book);
 	}
 );
@@ -151,6 +156,7 @@ const buyBook: express.RequestHandler = expressAsyncHandler(
 		res.status(200).json(SelectedBook);
 	}
 );
+
 
 export {
 	getAllBooks,
