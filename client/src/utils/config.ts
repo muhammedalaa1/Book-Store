@@ -1,0 +1,2 @@
+export const stripePublishableKey = "pk_test_51NW3XhJP89spZkv3CA7QjddYiBQr2Yh4i14CnSE8vNYCZ0TJ1tXtLg4HZpJE6ebr6hcqNNyyP2DUMcxiqmqyA6Cq00zC64Vn3e";
+export const clientSecretKey = "sk_test_51NW3XhJP89spZkv34C8OAJiqJxZN2vKWTmWj83i4fNtxXdcbrvtlTCJhwhTcjgFMaPCYSiuuqtA7bSWAYHap4Q4q00RqzxS3t6"

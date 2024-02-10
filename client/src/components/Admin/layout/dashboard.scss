@@ -50,3 +50,35 @@ aside {
     z-index: 1;
   }
 }
+.MuiAccordion-root {
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+.MuiAccordionSummary-root {
+  padding: 0;
+  min-height: auto;
+}
+.MuiAccordionSummary-content {
+  margin: 0;
+}
+.MuiAccordionDetails-root {
+  padding: 0;
+}
+
+.opened{
+  &{
+    position: fixed;
+    left: 0;
+    top: 60px;
+    background-color: #fff;
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all .5s ease-in;
+    overflow: hidden;
+  }
+  &.active{
+    width: 100%;
+  }
+
+}
