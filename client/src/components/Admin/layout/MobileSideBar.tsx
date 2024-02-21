@@ -15,9 +15,8 @@ import { useAuth } from "../../../contexts/Auth";
 
 const MobileSideBar: React.FC<{
   Menu: boolean;
-  Collapse: boolean;
   setMenu: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ Menu, Collapse, setMenu }) => {
+}> = ({ Menu, setMenu }) => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -71,7 +70,7 @@ const MobileSideBar: React.FC<{
           </Link>
         </div>
         <div className="flex justify-between flex-col gap-4 mt-12 cursor-pointer absolute bottom-0 w-full z-50 ">
-          <Accordion className={`${Collapse ? "hidden" : " "}`}>
+          <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMore />}
               aria-controls="panel1-content"
@@ -80,9 +79,8 @@ const MobileSideBar: React.FC<{
               <div className="flex items-center">
                 <p data-letters={`${user?.userName.charAt(0)}`}></p>
                 <p
-                  className={`font-medium ${
-                    Collapse ? "invisible" : "visible "
-                  } transition-all duration-100`}
+                  className={`font-medium  visible 
+                  transition-all duration-100`}
                 >
                   {" "}
                   {user?.userName.charAt(0).toUpperCase()}
@@ -91,7 +89,7 @@ const MobileSideBar: React.FC<{
               </div>
             </AccordionSummary>
             <AccordionDetails>
-              <div className={`${Collapse ? "hidden" : "flex gap-3 flex-col"}`}>
+              <div className={`flex gap-4`}>
                 <button className="bg-[#7151ed] border-2border-[#7151ed] hover:bg-white  hover:text-[#7151ed] text-white  rounded-md  duration-300   transition-colors p-2   ">
                   <Link to={"/"}>Home</Link>
                 </button>{" "}

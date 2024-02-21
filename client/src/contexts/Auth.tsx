@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
     const getFeatured = async () => {
       try {
-        const { data } = await api.get(`/api/books/?flag=t`);
+        const { data } = await api.get(`/api/books/?flag=featured`);
         setFeaturedBooks(data);
       } catch (error) {
         notifyError("Error Getting Featured Book");

@@ -35,7 +35,7 @@ const Dashboard: React.FC<{ name?: string; children?: React.ReactNode }> = (
   return (
     <>
       <div className="flex">
-        <MobileSideBar Menu={Menu} Collapse={Collapse} setMenu={setMenu} />
+        <MobileSideBar Menu={Menu} setMenu={setMenu} />
         <aside
           className={` bg-[#fcfaf5] h-screen sticky top-0 p-2 min-w-[55px] dashboard-sidebar md:block hidden ${
             Collapse ? "w-[5.33333333%]" : "w-1/5"
