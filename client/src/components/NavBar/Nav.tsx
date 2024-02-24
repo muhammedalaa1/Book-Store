@@ -140,9 +140,6 @@ const Nav = () => {
                       <p className="text-[#7151ed] font-semibold">
                         Your Basket
                       </p>
-                      <span className="block text-left font-medium text-xs font-sans">
-                        0.00
-                      </span>
                     </div>
                   </div>
                 </Link>
