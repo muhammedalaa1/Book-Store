@@ -7,12 +7,12 @@ interface MulterRequest extends Request {
     file: any;
 }
 // Initialize ImageKit
-//@ts-ignore
 const imagekit = new ImageKit({
     publicKey: process.env.PUBLIC_KEY,
     privateKey: process.env.PRIVATE_KEY,
     urlEndpoint: process.env.IMAGEKIT_ENDPOINT,
 });
+//@ts-ignore
 
 const upload = multer({
     storage: multer.memoryStorage(),
@@ -23,7 +23,6 @@ const upload = multer({
 
 export function uploadSingleImage(req: MulterRequest, res, next) {
     const uploadTask = upload.single("image");
-    console.log(req.files);
 
     uploadTask(req, res, function (err) {
         if (err) {
