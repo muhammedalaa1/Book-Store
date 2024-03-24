@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Initialize ImageKit
+//@ts-ignore
 const imagekit = new ImageKit({
     publicKey: process.env.PUBLIC_KEY,
     privateKey: process.env.PRIVATE_KEY,
@@ -17,7 +18,7 @@ const upload = multer({
         fileSize: 5 * 1024 * 1024, // no larger than 5mb
     },
 });
-//@ts-nocheck
+
 export function uploadSingleImage(req: Request, res, next) {
     const uploadTask = upload.single("image");
     console.log(req.files);
