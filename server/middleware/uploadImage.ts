@@ -1,5 +1,4 @@
 import { Request } from "express";
-//@ts-ignore
 import multer from "multer";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";

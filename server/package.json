@@ -41,7 +41,8 @@
         "stripe": "^14.15.0",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
-        "validator": "^13.11.0"
+        "validator": "^13.11.0",
+        "multer": "^1.4.5-lts.1"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
