@@ -1,4 +1,5 @@
 import { Request } from "express";
+//@ts-ignore
 import multer from "multer";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";
@@ -12,7 +13,6 @@ const imagekit = new ImageKit({
     privateKey: process.env.PRIVATE_KEY,
     urlEndpoint: process.env.IMAGEKIT_ENDPOINT,
 });
-//@ts-ignore
 
 const upload = multer({
     storage: multer.memoryStorage(),
