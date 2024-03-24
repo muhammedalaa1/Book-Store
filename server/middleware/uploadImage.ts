@@ -3,7 +3,9 @@ import multer from "multer";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";
 dotenv.config();
-
+interface MulterRequest extends Request {
+    file: any;
+}
 // Initialize ImageKit
 //@ts-ignore
 const imagekit = new ImageKit({
@@ -19,7 +21,7 @@ const upload = multer({
     },
 });
 
-export function uploadSingleImage(req: Request, res, next) {
+export function uploadSingleImage(req: MulterRequest, res, next) {
     const uploadTask = upload.single("image");
     console.log(req.files);
 
@@ -27,7 +29,7 @@ export function uploadSingleImage(req: Request, res, next) {
         if (err) {
             return res.send(err);
         }
-        if (!req.file) {
+        if (!(req as MulterRequest).file) {
             if (req.params.bookId) {
                 return next();
             }
@@ -37,8 +39,8 @@ export function uploadSingleImage(req: Request, res, next) {
 
         // Upload the image buffer to ImageKit
         const image = {
-            fileName: req.file.originalname,
-            file: req.file.buffer.toString("base64"),
+            fileName: (req as MulterRequest).file.originalname,
+            file: (req as MulterRequest).file.buffer.toString("base64"),
         };
 
         imagekit.upload(image, function (error, result) {
