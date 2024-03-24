@@ -71,6 +71,5 @@ server.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
 setInterval(() => {
-  const data = axios.get("https://bookstore-303p.onrender.com/api/auth/");
-  console.log(data);
+  await axios.get("https://book-store-mrxz.onrender.com");
 }, 1000 * 60 * 14);
