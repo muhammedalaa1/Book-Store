@@ -15,9 +15,6 @@ const imagekit = new ImageKit({
 
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024, // no larger than 5mb
-    },
 });
 
 export function uploadSingleImage(req: MulterRequest, res, next) {
