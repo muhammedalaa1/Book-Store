@@ -1,4 +1,4 @@
-import express, { Request } from "express";
+import { Request } from "express";
 import multer from "multer";
 import ImageKit from "imagekit";
 import dotenv from "dotenv";
