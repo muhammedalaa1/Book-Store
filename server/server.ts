@@ -70,6 +70,10 @@ app.use(errorhandler);
 server.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
-setInterval(() => {
-  await axios.get("https://book-store-mrxz.onrender.com");
+setInterval(async () => {
+    try {
+        await axios.get("https://book-store-mrxz.onrender.com");
+    } catch (error) {
+        console.log(error);
+    }
 }, 1000 * 60 * 14);
