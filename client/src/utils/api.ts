@@ -4,7 +4,7 @@ import axios from "axios";
 // 	baseURL: "http://localhost:5001",
 // });
 export default axios.create({
-  baseURL: "https://bookstore-303p.onrender.com",
+    baseURL: "https://book-store-mrxz.onrender.com",
 });
 
 //https://bookstore-303p.onrender.com
