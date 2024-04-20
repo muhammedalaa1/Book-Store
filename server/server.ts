@@ -72,7 +72,7 @@ server.listen(PORT, () => {
 });
 setInterval(async () => {
     try {
-        await axios.get("https://book-store-mrxz.onrender.com");
+        await axios.get("https://book-store-0703.onrender.com");
     } catch (error) {
         console.log(error);
     }
